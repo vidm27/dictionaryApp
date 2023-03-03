@@ -1,11 +1,40 @@
 <template>
-
+  <div v-if="word.length === 0" id="definition__not__found">
+    <span>No existe la palabra</span>
+  </div>
+  <div v-else id="definition__found">
+    <h2>{{ textWord }}</h2>
+    <h5>{{ phonetic }}</h5>
+    <figure>
+      <audio :src="phoneticSound" preload="auto" controls></audio>
+    </figure>
+    <div>
+      Noun:
+      <p>Meaning:</p>
+      <ul v-for="noun in nouns.definitions">
+        <li>{{ noun['definition'] }}</li>
+      </ul>
+      <div>
+        synonyms:
+        <div v-for="synonym in nouns.synonyms">
+          <span>{{ synonym }} </span>
+        </div>
+      </div>
+    </div>
+    <div>
+      Verb:
+      <p>Meaning:</p>
+      <ul v-for="verb in verbs.definitions">
+        <li>{{ verb['definition'] }}</li>
+      </ul>
+    </div>
+    <div>Source: <a :href="sourcerUrl" target="_blank">{{ sourcerUrl }}</a></div>
+  </div>
 </template>
-
 <script>
 export default {
-  name: "ResultWord"
-    data() {
+  name: "ResultWord",
+  data() {
     return {
       word: [],
       textWord: '',
@@ -77,9 +106,7 @@ export default {
   },
   computed: {}
 }
-}
 </script>
-
 <style scoped>
 
 </style>
