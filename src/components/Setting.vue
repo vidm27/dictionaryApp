@@ -7,7 +7,7 @@
       <div class="dropdown">
         <button @click="showDropdown" type="button" class="dropbtn" data-font="sans__serif" value="Inter"
                 id="current__font">
-          <span data-font-text>Sans Serif</span>
+          <span id="font__text">Sans Serif</span>
           <img src="../assets/icon-arrow-down.svg" alt="arrow down">
         </button>
         <div class="dropdown-content" id="font__dropdown">
@@ -42,7 +42,8 @@ export default {
       const body = document.getElementsByTagName("body")[0];
       body.style.fontFamily = font
       const currentFont = document.getElementById("current__font");
-      currentFont.textContent = event.target.textContent;
+      const fontText = document.getElementById("font__text")
+      fontText.textContent = event.target.textContent;
       currentFont.value = font
       currentFont.style.fontFamily = font;
     }
