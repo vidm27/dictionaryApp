@@ -1,6 +1,9 @@
 <template>
   <div v-if="word.length === 0" id="definition__not__found">
-    <span>No existe la palabra</span>
+    <span class="sad__icon">😕</span>
+    <h3 class="not__found">No Definitions Found</h3>
+    <p>Sorry pal, we couldn't find definitions for the word you were looking for. You can try the search again at later
+      time or head to the web instead.</p>
   </div>
   <div v-else id="definition__found">
     <h1>{{ textWord }}</h1>
@@ -217,5 +220,23 @@ hr {
 
 .section__divider div {
 
+}
+#definition__not__found{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+#definition__not__found .sad__icon{
+  font-size: 5rem;
+}
+#definition__not__found .not__found{
+  font-weight: bold;
+  font-size: 1.6em;
+}
+#definition__not__found p{
+  color: #757575;
+  text-align: center;
+  font-size: 1.2rem;
 }
 </style>
