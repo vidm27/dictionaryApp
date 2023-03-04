@@ -6,11 +6,15 @@
       time or head to the web instead.</p>
   </div>
   <div v-else id="definition__found">
-    <h1>{{ textWord }}</h1>
-    <h5>{{ phonetic }}</h5>
-    <figure>
-      <audio :src="phoneticSound" preload="auto" controls></audio>
-    </figure>
+    <div class="word__container">
+      <div class="word">
+        <h1>{{ textWord }}</h1>
+        <h5>{{ phonetic }}</h5>
+      </div>
+      <button @click="playSound" type="button" class="btn__play__sound">
+        <img src="../assets/icon-play.svg" alt="play">
+      </button>
+    </div>
     <div class="content__info">
       <div class="section__divider">
         <span>
@@ -116,6 +120,10 @@ export default {
         }
         console.log('Nouns: ', this.nouns, 'Verb: ', this.verb);
       })
+    },
+    playSound: function (){
+      let audio = new Audio(this.phoneticSound);
+      audio.play();
     }
   },
   created() {
@@ -161,6 +169,14 @@ export default {
   margin: 0;
   color: #A445ED;
   font-weight: 400;
+}
+#definition__found div.word__container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  align-content: center;
+  justify-items: center;
+  margin-bottom: 3rem;
 }
 
 .content__info {
@@ -221,22 +237,31 @@ hr {
 .section__divider div {
 
 }
-#definition__not__found{
+
+#definition__not__found {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
 }
-#definition__not__found .sad__icon{
+
+#definition__not__found .sad__icon {
   font-size: 5rem;
 }
-#definition__not__found .not__found{
+
+#definition__not__found .not__found {
   font-weight: bold;
   font-size: 1.6em;
 }
-#definition__not__found p{
+
+#definition__not__found p {
   color: #757575;
   text-align: center;
   font-size: 1.2rem;
+}
+
+.btn__play__sound {
+  border: none;
+  background: none;
 }
 </style>
