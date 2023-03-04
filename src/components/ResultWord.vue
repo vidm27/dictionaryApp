@@ -35,8 +35,8 @@
         <span class="label">
           Synonyms
         </span>
-        <div class="result__synonyms" v-for="synonym in nouns.synonyms">
-          <span>{{ synonym }} </span>
+        <div class="result__synonyms">
+          <span @click="searchSynonym" v-for="synonym in nouns.synonyms">{{ synonym }} </span>
         </div>
       </div>
     </div>
@@ -83,10 +83,14 @@ export default {
   },
   methods: {
     getTextPhoneticAndWord: function () {
-      this.word.forEach((current) => {
-        this.textWord = current['word'];
-        this.phonetic = current['phonetic'];
-      });
+      try {
+        this.word.forEach((current) => {
+          this.textWord = current['word'];
+          this.phonetic = current['phonetic'];
+        });
+      } catch (e) {
+        console.warn("Empty word");
+      }
     },
     getPhoneticSound: function () {
       this.word.forEach((value) => {
@@ -127,6 +131,12 @@ export default {
     playSound: function () {
       let audio = new Audio(this.phoneticSound);
       audio.play();
+    },
+    searchSynonym: function (event) {
+      const synonym = event.target.textContent;
+      const search = document.getElementById('search__word');
+      search.value = synonym;
+      this.emitter.emit('search-synonym', {synonymWord: synonym})
     }
   },
   created() {
@@ -157,6 +167,7 @@ export default {
 .list__meaning li::marker {
   color: #8F19E8;
 }
+
 #definition__found h1 {
   font-size: 4rem;
   margin-bottom: 0;
@@ -169,9 +180,11 @@ export default {
   color: #A445ED;
   font-weight: 400;
 }
-.empty__text{
+
+.empty__text {
   color: #ff5252;
 }
+
 #definition__found div.word__container {
   display: flex;
   justify-content: space-between;
@@ -194,10 +207,14 @@ export default {
 }
 
 #synonyms .result__synonyms {
-  margin-right: .6rem;
-  margin-left: .6rem;
   font-weight: bold;
   color: #A445ED;
+  display: flex;
+  flex-wrap: wrap;
+}
+#synonyms .result__synonyms span{
+  margin-right: .6rem;
+  margin-left: .6rem;
 }
 
 .link__source {
@@ -265,5 +282,9 @@ hr {
 .btn__play__sound {
   border: none;
   background: none;
+}
+
+.result__synonyms {
+  cursor: default;
 }
 </style>

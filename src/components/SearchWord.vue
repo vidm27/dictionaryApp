@@ -34,21 +34,24 @@ export default {
   },
   methods: {
     async loadWord() {
+      this.inputValue = this.inputValue.trim();
+      const formSearch = document.getElementById("form__search");
+      if (this.inputValue !== '') {
+        formSearch.classList.remove('empty__input');
+        await this.fetchWord(this.inputValue);
+      } else {
+        this.word = "empty";
+        formSearch.classList.add('empty__input');
+      }
+      this.emitter.emit('fetch-word', {restWord: this.word});
+    },
+    async fetchWord(word) {
+      console.log('Synonym:' ,word);
       try {
-        this.inputValue = this.inputValue.trim();
-        const formSearch = document.getElementById("form__search");
-        if (this.inputValue !== '') {
-          let endpoint = `https://api.dictionaryapi.dev/api/v2/entries/en/${this.inputValue}`;
-          const res = await axios.get(endpoint);
-          formSearch.classList.remove('empty__input');
-          console.log(res.data);
-          this.word = [...res.data];
-        } else {
-          this.word = "empty";
-          formSearch.classList.add('empty__input');
-        }
+        let endpoint = `https://api.dictionaryapi.dev/api/v2/entries/en/${word}`;
+        const res = await axios.get(endpoint);
+        this.word = [...res.data];
       } catch (error) {
-        // console.error(error);
         console.error("La palabra es incorrecta");
         this.word = [];
       }
@@ -58,6 +61,11 @@ export default {
   computed: {},
   async mounted() {
 
+  },
+  created() {
+    this.emitter.on('search-synonym', (event) => {
+      this.fetchWord(event.synonymWord);
+    })
   }
 }
 </script>
@@ -69,9 +77,11 @@ form.pure-form {
   justify-content: space-between;
   position: relative;
 }
-form.pure-form.empty__input{
+
+form.pure-form.empty__input {
   margin-bottom: 0;
 }
+
 form.pure-form.empty__input input {
   border: 1px solid #ff5252;
 }
