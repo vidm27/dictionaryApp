@@ -11,14 +11,15 @@
           <img src="../assets/icon-arrow-down.svg" alt="arrow down">
         </button>
         <div class="dropdown-content" id="font__dropdown">
-          <button @click="changeFontWindow" class="font" type="button" id="font__sans__serif" value="Inter">Sans Serif</button>
+          <button @click="changeFontWindow" class="font" type="button" id="font__sans__serif" value="Inter">Sans Serif
+          </button>
           <button @click="changeFontWindow" class="font" type="button" id="font__serif" value="Lato">Serif</button>
           <button @click="changeFontWindow" class="font" type="button" id="font__mono" value="Inconsolata">Mono</button>
         </div>
       </div>
       <div class="mode">
         <label class="switch">
-          <input type="checkbox" name="mode__window" id="mode__window">
+          <input @click="switchModeStyle" type="checkbox" name="mode__window" id="mode__window">
           <span class="slider round"></span>
         </label>
         <img src="../assets/icon-moon.svg" alt="moon">
@@ -46,6 +47,10 @@ export default {
       fontText.textContent = event.target.textContent;
       currentFont.value = font
       currentFont.style.fontFamily = font;
+    },
+    switchModeStyle: function (event) {
+      const body = document.body;
+      body.classList.toggle("black__mode");
     }
   }
 }
@@ -154,7 +159,10 @@ input:checked + .slider:before {
 .dropdown-content {
   display: none;
   position: absolute;
-//left: 3px; background-color: #ffffff; min-width: 183px; box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2); z-index: 1;
+  background-color: #ffffff;
+  min-width: 183px;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  z-index: 1;
   border-radius: 1rem;
 }
 

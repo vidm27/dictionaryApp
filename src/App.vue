@@ -19,4 +19,5 @@ import 'purecss/build/pure.css';
   margin: 0 auto;
   padding: 0 1em;
 }
+
 </style>
