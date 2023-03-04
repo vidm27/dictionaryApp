@@ -3,32 +3,52 @@
     <span>No existe la palabra</span>
   </div>
   <div v-else id="definition__found">
-    <h2>{{ textWord }}</h2>
+    <h1>{{ textWord }}</h1>
     <h5>{{ phonetic }}</h5>
     <figure>
       <audio :src="phoneticSound" preload="auto" controls></audio>
     </figure>
-    <div>
-      Noun:
-      <p>Meaning:</p>
-      <ul v-for="noun in nouns.definitions">
-        <li>{{ noun['definition'] }}</li>
-      </ul>
-      <div>
-        synonyms:
-        <div v-for="synonym in nouns.synonyms">
+    <div class="content__info">
+      <div class="section__divider">
+        <span>
+          noun
+        </span>
+        <hr>
+      </div>
+      <div class="meanings">
+        <p class="label">Meaning:</p>
+        <ul class="list__meaning" v-for="noun in nouns.definitions">
+          <li class="option__meaning">{{ noun['definition'] }}</li>
+        </ul>
+      </div>
+      <div id="synonyms">
+        <span class="label">
+          Synonyms
+        </span>
+        <div class="result__synonyms" v-for="synonym in nouns.synonyms">
           <span>{{ synonym }} </span>
         </div>
       </div>
     </div>
-    <div>
-      Verb:
-      <p>Meaning:</p>
-      <ul v-for="verb in verbs.definitions">
-        <li>{{ verb['definition'] }}</li>
+    <div class="content__info">
+      <div class="section__divider">
+        <span>
+          verb
+        </span>
+        <hr>
+      </div>
+      <p class="label">Meaning</p>
+      <ul class="list__meaning" v-for="verb in verbs.definitions">
+        <li class="option__meaning">{{ verb['definition'] }}</li>
       </ul>
     </div>
-    <div>Source: <a :href="sourcerUrl" target="_blank">{{ sourcerUrl }}</a></div>
+    <hr>
+    <div class="link__source"><span>
+      Source
+    </span>
+      <a :href="sourcerUrl" target="_blank">{{ sourcerUrl }}
+        <font-awesome-icon icon="fa-solid fa-arrow-up-right-from-square"/>
+      </a></div>
   </div>
 </template>
 <script>
@@ -63,7 +83,7 @@ export default {
         let phonetics = value['phonetics'];
         let isModify = false;
         phonetics.forEach((phonetic) => {
-          if(phonetic['audio'].trim() !== ""){
+          if (phonetic['audio'].trim() !== "") {
             this.phoneticSound = phonetic['audio'];
             isModify = true;
           }
@@ -108,5 +128,94 @@ export default {
 }
 </script>
 <style scoped>
+#definition__found, #definition__not__found {
+//font-family: 'Inter';
+}
 
+.label {
+  font-weight: 400;
+  color: #757575;
+  font-size: 1.05em;
+}
+
+.list__meaning {
+  color: #2D2D2D;
+  line-height: 1.5;
+}
+
+.list__meaning li::marker {
+  color: #8F19E8;
+}
+
+#definition__found h1 {
+  font-size: 4em;
+  margin-bottom: 0;
+  color: #2D2D2D;
+}
+
+#definition__found h5 {
+  font-size: 1.2em;
+  margin: 0;
+  color: #A445ED;
+  font-weight: 400;
+}
+
+.content__info {
+  margin-bottom: 1.5rem;
+}
+
+.content__info .meanings {
+  margin-bottom: 2.5rem;
+}
+
+#synonyms {
+  display: flex;
+}
+
+#synonyms .result__synonyms {
+  margin-right: .6rem;
+  margin-left: .6rem;
+  font-weight: bold;
+  color: #A445ED;
+}
+
+.link__source {
+  color: #757575;
+  font-weight: 400;
+  font-size: 14px;
+}
+
+.link__source span {
+  text-decoration: underline;
+  margin-right: 1.2rem;
+}
+
+.link__source a {
+  color: #757575;
+}
+
+.section__divider {
+  display: flex;
+  margin-bottom: 2rem;
+}
+
+.section__divider span {
+  margin-right: 1.1rem;
+  font-weight: bold;
+  font-style: italic;
+  font-size: 1.5rem;
+
+}
+
+hr {
+  height: 1px;
+  background: #e9e9e9;
+  width: 100%;
+  border: none;
+  margin-top: .8rem;
+}
+
+.section__divider div {
+
+}
 </style>

@@ -1,13 +1,14 @@
 <template>
-  <div>
+  <form class="pure-form">
     <input
         type="text"
         @input="loadWord"
         v-model="inputValue"
         :name="inputSearch.name"
         :placeholder="inputSearch.placeholder"
-        :id="inputSearch.id">
-  </div>
+        :id="inputSearch.id"
+        class="pure-input-1">
+  </form>
 </template>
 
 <script>
