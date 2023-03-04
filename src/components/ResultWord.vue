@@ -142,9 +142,6 @@ export default {
 }
 </script>
 <style scoped>
-#definition__found, #definition__not__found {
-//font-family: 'Inter';
-}
 
 .label {
   font-weight: 400;
