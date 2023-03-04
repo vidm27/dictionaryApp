@@ -5,11 +5,14 @@
     </div>
     <div class="setting">
       <div class="dropdown">
-        <button type="button" class="dropbtn"></button>
-        <div class="dropdown-content" id="myDropdown">
-          <button type="button">Link 1</button>
-          <button type="button">Link 2</button>
-          <button type="button">Link 3</button>
+        <button @click="showDropdown" type="button" class="dropbtn" data-font="sans__serif">
+          <span data-font-text>Sans Serif</span>
+          <img src="../assets/icon-arrow-down.svg" alt="arrow down">
+        </button>
+        <div class="dropdown-content" id="font__dropdown">
+          <button class="font" type="button" id="font__sans__serif">Sans Serif</button>
+          <button class="font" type="button" id="font__serif">Serif</button>
+          <button class="font" type="button" id="font__mono">Mono</button>
         </div>
       </div>
       <div class="mode">
@@ -26,7 +29,14 @@
 
 <script>
 export default {
-  name: "Setting"
+  name: "Setting",
+  methods: {
+    showDropdown: function (event) {
+      console.log(event.target);
+      const dropdown = document.getElementById("font__dropdown");
+      dropdown.classList.toggle("show");
+    }
+  }
 }
 </script>
 
@@ -111,5 +121,72 @@ input:checked + .slider:before {
 
 .mode img {
   margin-left: .5rem;
+}
+
+.dropdown {
+  float: left;
+  overflow: hidden;
+}
+
+.dropdown .dropbtn {
+  font-size: 1rem;
+  border: none;
+  outline: none;
+  color: #2D2D2D;
+  font-weight: bold;
+  padding: 14px 16px;
+  background-color: inherit;
+  font-family: inherit;
+  margin: 0;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  //left: 3px;
+  background-color: #ffffff;
+  min-width: 183px;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+  border-radius: 1rem;
+}
+
+.show {
+  display: flex;
+}
+
+div#font__dropdown {
+  flex-direction: column;
+  background: #f9f9f9;
+  text-align: left;
+}
+
+button.font {
+  background: none;
+  border: none;
+  padding: .6rem 1rem;
+  text-align: left;
+  font-weight: bold;
+  font-size: 1.0625rem;
+}
+
+button.font:hover {
+  color: #A445ED;
+  transition: ease-in-out .5s;
+}
+
+button.font#font__sans__serif {
+  font-family: 'Inter';
+}
+
+button.font#font__serif {
+  font-family: 'Lora';
+}
+
+button.font#font__mono {
+  font-family: 'Inconsolata';
+}
+.dropbtn span {
+  margin-right: 1rem;
 }
 </style>
