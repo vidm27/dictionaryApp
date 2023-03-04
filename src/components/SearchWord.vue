@@ -53,5 +53,8 @@ export default {
 </script>
 
 <style scoped>
+form.pure-form{
+  margin-bottom: 5rem;
+}
 
 </style>
