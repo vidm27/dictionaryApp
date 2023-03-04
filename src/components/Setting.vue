@@ -5,14 +5,15 @@
     </div>
     <div class="setting">
       <div class="dropdown">
-        <button @click="showDropdown" type="button" class="dropbtn" data-font="sans__serif">
+        <button @click="showDropdown" type="button" class="dropbtn" data-font="sans__serif" value="Inter"
+                id="current__font">
           <span data-font-text>Sans Serif</span>
           <img src="../assets/icon-arrow-down.svg" alt="arrow down">
         </button>
         <div class="dropdown-content" id="font__dropdown">
-          <button class="font" type="button" id="font__sans__serif">Sans Serif</button>
-          <button class="font" type="button" id="font__serif">Serif</button>
-          <button class="font" type="button" id="font__mono">Mono</button>
+          <button @click="changeFontWindow" class="font" type="button" id="font__sans__serif" value="Inter">Sans Serif</button>
+          <button @click="changeFontWindow" class="font" type="button" id="font__serif" value="Lato">Serif</button>
+          <button @click="changeFontWindow" class="font" type="button" id="font__mono" value="Inconsolata">Mono</button>
         </div>
       </div>
       <div class="mode">
@@ -35,6 +36,15 @@ export default {
       console.log(event.target);
       const dropdown = document.getElementById("font__dropdown");
       dropdown.classList.toggle("show");
+    },
+    changeFontWindow: function (event) {
+      const font = event.target.value
+      const body = document.getElementsByTagName("body")[0];
+      body.style.fontFamily = font
+      const currentFont = document.getElementById("current__font");
+      currentFont.textContent = event.target.textContent;
+      currentFont.value = font
+      currentFont.style.fontFamily = font;
     }
   }
 }
@@ -143,11 +153,7 @@ input:checked + .slider:before {
 .dropdown-content {
   display: none;
   position: absolute;
-  //left: 3px;
-  background-color: #ffffff;
-  min-width: 183px;
-  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
-  z-index: 1;
+//left: 3px; background-color: #ffffff; min-width: 183px; box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2); z-index: 1;
   border-radius: 1rem;
 }
 
@@ -186,6 +192,7 @@ button.font#font__serif {
 button.font#font__mono {
   font-family: 'Inconsolata';
 }
+
 .dropbtn span {
   margin-right: 1rem;
 }
