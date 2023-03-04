@@ -1,5 +1,8 @@
 <template>
-  <div v-if="word.length === 0" id="definition__not__found">
+  <div v-if="word === 'empty'">
+    <span class="empty__text">Whoops, can’t be empty…</span>
+  </div>
+  <div v-else-if="word.length === 0" id="definition__not__found">
     <span class="sad__icon">😕</span>
     <h3 class="not__found">No Definitions Found</h3>
     <p>Sorry pal, we couldn't find definitions for the word you were looking for. You can try the search again at later
@@ -121,7 +124,7 @@ export default {
         console.log('Nouns: ', this.nouns, 'Verb: ', this.verb);
       })
     },
-    playSound: function (){
+    playSound: function () {
       let audio = new Audio(this.phoneticSound);
       audio.play();
     }
@@ -157,9 +160,8 @@ export default {
 .list__meaning li::marker {
   color: #8F19E8;
 }
-
 #definition__found h1 {
-  font-size: 4em;
+  font-size: 4rem;
   margin-bottom: 0;
   color: #2D2D2D;
 }
@@ -169,6 +171,9 @@ export default {
   margin: 0;
   color: #A445ED;
   font-weight: 400;
+}
+.empty__text{
+  color: #ff5252;
 }
 #definition__found div.word__container {
   display: flex;

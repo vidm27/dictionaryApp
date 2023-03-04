@@ -1,5 +1,5 @@
 <template>
-  <form class="pure-form">
+  <form class="pure-form" id="form__search">
     <input
         type="text"
         @input="loadWord"
@@ -28,7 +28,7 @@ export default {
         placeholder: "Enter a word"
       },
       inputValue: "",
-      word: [],
+      word: "empty",
       // restWord: null,
     }
   },
@@ -36,10 +36,17 @@ export default {
     async loadWord() {
       try {
         this.inputValue = this.inputValue.trim();
-        let endpoint = `https://api.dictionaryapi.dev/api/v2/entries/en/${this.inputValue}`;
-        const res = await axios.get(endpoint);
-        console.log(res.data);
-        this.word = [...res.data];
+        const formSearch = document.getElementById("form__search");
+        if (this.inputValue !== '') {
+          let endpoint = `https://api.dictionaryapi.dev/api/v2/entries/en/${this.inputValue}`;
+          const res = await axios.get(endpoint);
+          formSearch.classList.remove('empty__input');
+          console.log(res.data);
+          this.word = [...res.data];
+        } else {
+          this.word = "empty";
+          formSearch.classList.add('empty__input');
+        }
       } catch (error) {
         // console.error(error);
         console.error("La palabra es incorrecta");
@@ -61,6 +68,12 @@ form.pure-form {
   display: flex;
   justify-content: space-between;
   position: relative;
+}
+form.pure-form.empty__input{
+  margin-bottom: 0;
+}
+form.pure-form.empty__input input {
+  border: 1px solid #ff5252;
 }
 
 form.pure-form input {
